@@ -41,11 +41,11 @@ function fetchPage(url, callback) {
 
 function run(db) {
 	// Use request to read in pages.
-	fetchPage("https://morph.io", function (body) {
+	fetchPage("http://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays", function (body) {
 		// Use cheerio to find things in the page with css selectors.
 		var $ = cheerio.load(body);
 
-		var elements = $("div.media-body span.p-name").each(function () {
+		var elements = $("h2.act li.public-holiday").each(function () {
 			var value = $(this).text().trim();
 			updateRow(db, value);
 		});
