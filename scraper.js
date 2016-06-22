@@ -49,9 +49,11 @@ function run(db) {
 	
 	 var act = $('#act');
 	 console.log("act element:"+$(act).text().trim());
+	 var i = 0;
 		var elements = $('li[class=public-holiday]', '.act-2016').each(function () {
-			var value = $(this).text().trim();
-			updateRow(db , value);
+			i++;
+			var value = $('.holiday-date',this).text().trim();
+			updateRow(db , i+value);
 		});
 
 		readRows(db);
