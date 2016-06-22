@@ -53,7 +53,8 @@ function run(db) {
 		var elements = $('li[class=public-holiday]', '.act-2016').each(function () {
 			i++;
 			var value = $('.holiday-date',this).text().trim();
-			updateRow(db , i+value);
+			var desc = $('.holiday-title',this).text().trim();
+			updateRow(db , i+","+value+","+desc);
 		});
 
 		readRows(db);
