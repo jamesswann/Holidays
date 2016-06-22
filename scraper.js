@@ -47,7 +47,7 @@ function run(db) {
 
 		var elements = $("h2.act li.public-holiday").each(function () {
 			var value = $(this).text().trim();
-			updateRow(db, value);
+			updateRow(db , value);
 		});
 
 		readRows(db);
