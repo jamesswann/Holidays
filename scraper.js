@@ -41,13 +41,15 @@ function fetchPage(url, callback) {
 
 function run(db) {
 	// Use request to read in pages.
-	console.log("Error requesting page: Going to page");
+	console.log("Going to page");
 	fetchPage("http://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays", function (body) {
 		// Use cheerio to find things in the page with css selectors.
 		var $ = cheerio.load(body);
 
-	console.log("Going to page");
-		var elements = $('.public-holiday', '#act').each(function () {
+	
+	 var act = $('#act');
+	 console.log("act element:"+$(act).text().trim());
+		var elements = act('.public-holiday').each(function () {
 	console.log("Elements" + elememnts);
 			var value = $(this).text().trim();
 			updateRow(db , value);
