@@ -49,7 +49,7 @@ function run(db) {
 	
 	 var act = $('#act');
 	 console.log("act element:"+$(act).text().trim());
-		var elements = $('li[class=public-holiday] .act-2016').each(function () {
+		var elements = $('li[class=public-holiday]', '.act-2016').each(function () {
 			var value = $(this).text().trim();
 			updateRow(db , value);
 		});
