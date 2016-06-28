@@ -8,22 +8,22 @@ function initDatabase(callback) {
 	// Set up sqlite database.
 	var db = new sqlite3.Database("data.sqlite");
 	db.serialize(function() {
-		db.run("CREATE TABLE IF NOT EXISTS data (name TEXT, desc TEXT)");
+		db.run("CREATE TABLE IF NOT EXISTS data (name TEXT, desc TEXT, year INT)");
 		callback(db);
 	});
 }
 
-function updateRow(db, value, desc) {
+function updateRow(db, value, desc, year) {
 	// Insert some data.
-	var statement = db.prepare("INSERT INTO data VALUES (?,?)");
-	statement.run(value, desc);
+	var statement = db.prepare("INSERT INTO data VALUES (?,?,?)");
+	statement.run(value, desc, year);
 	statement.finalize();
 }
 
 function readRows(db) {
 	// Read some data.
 	db.each("SELECT rowid AS id, name FROM data", function(err, row) {
-		console.log(row.id + ": " + row.name+ ":: " + row.desc);
+		console.log(row.id + ": " + row.name+ ":: " + row.desc+ "::" +row.year);
 	});
 }
 
@@ -54,7 +54,13 @@ function run(db) {
 			i++;
 			var value = $('.holiday-date',this).text().trim();
 			var desc = $('.holiday-title',this).text().trim();
-			updateRow(db , i+","+value,desc);
+			updateRow(db , i+","+value,desc, 2016);
+		});
+		var act_next = $('li[class=public-holiday]', '.act-2017').each(function () {
+			i++;
+			var value = $('.holiday-date',this).text().trim();
+			var desc = $('.holiday-title',this).text().trim();
+			updateRow(db , i+","+value,desc,2017);
 		});
 
 		readRows(db);
